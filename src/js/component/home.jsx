@@ -49,16 +49,20 @@ const Home = () => {
     }
   }, [todos]);
 
-  window.onload = function () {
-    fetch("https://playground.4geeks.com/apis/fake/todos/user/httpscammy", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((resp) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const resp = await fetch(
+          "https://playground.4geeks.com/apis/fake/todos/user/httpscammy",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         if (!resp.ok) {
-          fetch(
+          await fetch(
             "https://playground.4geeks.com/apis/fake/todos/user/httpscammy",
             {
               method: "POST",
@@ -69,17 +73,19 @@ const Home = () => {
             }
           );
         }
-        return resp.json();
-      })
-      .then((data) => {
+        const data = await resp.json();
         setTodos(
           data
-            .filter((obj) => !obj.label === "example task")
+            .filter((obj) => obj.label !== "example task")
             .map((obj) => obj.label)
         );
         setLoaded(true);
-      });
-  };
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <div className="text-center">
@@ -100,10 +106,11 @@ const Home = () => {
       <button onClick={() => setTodos((prev) => [...prev, todo])}>Send</button>
       <ul>
         {todos.map((data, index) => (
-          <li key={`${data}-${index}`}>
+          <li className="tasks" key={`${data}-${index}`}>
             {data}
             <FontAwesomeIcon
               icon={faTrashCan}
+              className="trash-can"
               onClick={() => {
                 setTodos(
                   todos.filter((data, currentIndex) => index != currentIndex)

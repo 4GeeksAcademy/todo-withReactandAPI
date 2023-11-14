@@ -1,23 +1,31 @@
-body{
-    margin-top: 100px;
+body {
+  margin-top: 100px;
 }
-ul{
-    padding: none;
-    margin-bottom: 0;
+ul {
+  padding: none;
+  margin-bottom: 0;
 }
-ul li{
-    border: 2px solid grey;
-    list-style: none;
-    padding: 4px;
+ul li {
+  border: 2px solid grey;
+  list-style: none;
+  padding: 4px;
 }
-.header{
-    text-align: center;
+.header {
+  text-align: center;
 }
-input{
-    border:none;
-    width: 80%;
-    text-align: center;
+input {
+  border: none;
+  width: 80%;
+  text-align: center;
 }
-.task-button{
-    margin: 10px;
+.task-button {
+  margin: 10px;
+}
+.trash-can {
+  position: absolute;
+  top: 10px;
+  right: 50px;
+}
+.tasks {
+  position: relative;
 }
